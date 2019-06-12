@@ -1,27 +1,40 @@
-var cityId = 82
-var url = "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city";
+var cityId;
+function searchCity(cityId) {
+ 
+ var url = "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city";
+ console.log(url);
 
-fetch(url, {
-    method: "GET",
-    headers: {
-        "user-key": "761f6ca627cd39bc1f417f361a422990"
-    }
+ fetch(url, {
+     method: "GET",
+     headers: {
+         "user-key": "761f6ca627cd39bc1f417f361a422990"
+     }
+ 
+ })
+ .then(function (res) {
+     return res.json();
+ })
+ .then(function (data) {
+   var allData = data.restaurants;
+   
+   getRestaurans(allData);
+   console.log(allData[0].restaurant.location.address);
+     
+ 
+ 
+ })
+ .catch(function (error) {
+     console.log(error)
+ });
 
-})
-.then(function (res) {
-    return res.json();
-})
-.then(function (data) {
-  var allData = data.restaurants
-  getRestaurans(allData)
-  console.log(allData[0].restaurant.location.address);
-    
 
+};
+console.log(cityId);
 
-})
-.catch(function (error) {
-    console.log(error)
-});
+function test(click){
+  alert("You chossed " + cityId);
+}
+
 
 
 // var data = {
@@ -193,6 +206,7 @@ fetch(url, {
 // var allData = data.restaurants
   function getRestaurans(allData) {
      var restaurantList = document.getElementById("restaurantList");
+     restaurantList.innerHTML = ""; // to empty search and allow new search
       // console.log("2")
      for (var i = 0; i < allData.length; i++) {
       //  console.log("3")
