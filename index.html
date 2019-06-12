@@ -14,19 +14,18 @@
 <body>
    <div class="general tonto">
         <div>1)Home page
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Where are you?
-                </button>
+            
               
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <button class="dropdown-item" id="myBtn" onclick="searchCity(280)" >New York City</button>
-                  <button class="dropdown-item" id="myBtn" onclick="searchCity(82)" >Lisbon</button>
-                  <button class="dropdown-item" id="myBtn" onclick="searchCity(311)" >Porto</button>
-                  <button class="dropdown-item" id="myBtn" onclick="searchCity(91)" >Dublin</button>
-                  <button class="dropdown-item" id="myBtn" onclick="searchCity(61)" >London</button>
-                  <button class="dropdown-item" id="myBtn" onclick="searchCity(258)" >Milan</button>
-                  <button onClick="test()">DEBUG</button>
+                
+                    <select id="selectCity" onchange="searchCity(value)">
+                        <option value="280">New York City</option>
+                        <option value="82">Lisbon</option>
+                        <option value="311">Porto</option>
+                        <option value="91">Dublin</option>
+                        <option value="61">London</option>
+                        <option value="258">Milan</option>
+                        
+                    </select>
                 </div>
               </div>
 
