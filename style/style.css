@@ -1,0 +1,29 @@
+#restaurantList {
+    border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
+.general {
+  background-color: aqua
+}
+
+
+.name {
+  background-color: grey;
+  font-size: 1.17em;
+}
+
+.cuisine {
+  background-color: cadetblue;
+  font-size: .75em;
+  
+}
+
+.address {
+
+  background-color: lightgray;
+  font-size: .75em
+
+}
+
