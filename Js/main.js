@@ -1,4 +1,5 @@
-var url = "https://developers.zomato.com/api/v2.1/search?entity_id=280&entity_type=city";
+var cityId = 82
+var url = "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city";
 
 fetch(url, {
     method: "GET",
