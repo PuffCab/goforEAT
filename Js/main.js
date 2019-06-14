@@ -18,24 +18,15 @@ function searchCity(cityId) {
    var allData = data.restaurants;
    
    getRestaurans(allData);
+   
    console.log(allData[0].restaurant.location.address);
      
- 
- 
  })
  .catch(function (error) {
      console.log(error)
  });
-
-
 };
 console.log(cityId);
-
-function test(click){
-  alert("You chossed " + cityId);
-}
-
-
 
 // var data = {
 //     "results_found": 42764,
@@ -221,17 +212,33 @@ function test(click){
       restaurantImg.setAttribute("alt", allData[i].restaurant.name);
       restaurantImg.setAttribute("class", "img-thumbnail");
 
-
+// console.log(allData[i])
 
       //add restaurant name 
 
       
       var nameContainer = document.createElement("div");
       nameContainer.setAttribute("class", "nameContainer");
+      nameContainer.setAttribute("id", "nameDiv" + i);
       var spanName = document.createElement("span");
       spanName.setAttribute("class", "name");
+      spanName.setAttribute("id", allData[i].restaurant.id);
       var restaurantName = allData[i].restaurant.name
       spanName.innerHTML = restaurantName
+
+      //add eventlistener to name container. to get name in One Restaurant Page (Orp)
+      nameContainer.addEventListener('click', () => {
+        // console.log(i)
+        var targetElement = document.getElementById('oneName');
+        console.log(targetElement)
+        changeName(targetElement, event)
+        // targetElement.innerText = restaurantName ;
+      })
+
+
+      
+
+      
       
 
 
@@ -255,15 +262,6 @@ function test(click){
        spanAddress.innerHTML = restaurantAddress;
        
 
-
-
-
-
-       
-
-
-
-
        //add created elements
 
        
@@ -277,11 +275,29 @@ function test(click){
 
        restaurantList.appendChild(card);
        //  console.log("4")
-
-
     
      }
+     
+
+  }
+
+  function changeName(target, event) {
+    console.log(event)
+    // var restaurantName = 
+    // var oneName = document.getElementById("oneName");
+    // console.log(restaurantName)
+    
+      target.innerHTML = event.target.textContent
+
+    
+
 
   }
   
+
+
+
+
+
+
 
