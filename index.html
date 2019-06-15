@@ -11,12 +11,12 @@
     <title>Go for Eat</title>
 </head>
 
-<body>
+<body onload="createFirstPage()">
    <div class="general tonto">
-        <div>1)Home page
+        <div id="restaurantList">1)Home page
             
               
-                
+            <!-- <div id="restaurantList">resturants list
                     <select id="selectCity" onchange="searchCity(value)">
                         <option value="280">New York City</option>
                         <option value="82">Lisbon</option>
@@ -26,11 +26,12 @@
                         <option value="258">Milan</option>
                         
                     </select>
-                </div>
-              </div>
-
+                </div> -->
+              
+            
         </div>
-
+        <button id="homeBtn" type="button" onclick="createFirstPage()">HOME</button>
+<!-- 
         <div>2)Main Menu Page</div>
             <div class="container">
                 <div id="card">
@@ -39,7 +40,7 @@
                 <div id="restaurantList">resturants list</div>
             </div>
         <div>3)One Restaurant page</div>
-        <div class="container">
+        <div id='orpCard' class="container">
             <div>
                 <img id="oneRestaurant" alt="restaurant image" src="https://i.ytimg.com/vi/ZawU-NBG6OY/maxresdefault.jpg">
                 <p id="oneName"class="orpDescription">Restaurant Name</p>
@@ -61,7 +62,7 @@
         <div>6)Reviews subpage</div>
         <div>7)Login Page</div>
         <div>8)Registaration page</div>
-        <div>9)Chat page</div>
+        <div>9)Chat page</div> -->
     </div> 
 
 

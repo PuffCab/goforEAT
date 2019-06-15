@@ -1,3 +1,30 @@
+// window.onload = function (){
+ 
+//   createFirstPage();
+
+// };
+
+function createFirstPage() {
+
+  console.log("cargada funcion")
+  const firstList = `
+                        <div>ARE YOU HUNGRY??
+                        <select id="selectCity" onchange="searchCity(value)">
+                            <option>Selec city</option>
+                            <option value="280">New York City</option>
+                            <option value="82">Lisbon</option>
+                            <option value="311">Porto</option>
+                            <option value="91">Dublin</option>
+                            <option value="61">London</option>
+                            <option value="258">Milan</option>
+                            
+                        </select>
+                      </div>
+                    `
+document.getElementById("restaurantList").innerHTML = firstList
+
+}
+
 var cityId;
 function searchCity(cityId) {
  
@@ -268,9 +295,11 @@ console.log(cityId);
        
         card.addEventListener('click', function() {
          
-          var cardRestaurantId = card.getAttribute("id");
-          console.log(card)
-          console.log('funciona') 
+          // var cardRestaurantId = card.getAttribute("id");
+          var cardRestaurantId = event.currentTarget.id;
+          console.log(card);
+          console.log(event.currentTarget.id);
+          
           secondFetchFunction(cardRestaurantId);
         }) 
 
@@ -296,23 +325,6 @@ console.log(cityId);
 
   }
 
-  // function changeName(target, event) {
-  //   console.log(event)
-  //   // var restaurantName = 
-  //   // var oneName = document.getElementById("oneName");
-  //   // console.log(restaurantName)
-    
-  //     target.innerHTML = event.target.textContent
-  //   }
-
-    // function changeThings(targetName, targetAdress, event) {
-
-    //   console.log(event)
-
-    //   targetName.innerHTML = event.target.textContent
-    //   targetAdress.innerHTML = event.target.textContent
-
-    // }
   
 
 function secondFetchFunction(cardRestaurantId) {
@@ -329,41 +341,66 @@ function secondFetchFunction(cardRestaurantId) {
   })
   .then(function(data) {
     var allData = data;
-    console.log(cardRestaurantId);
-    //callFunctionToCreateORP()
+    console.log(allData.location);
+    getOneRestPage(allData);
 
-    console.log(allData);
+    // console.log(allData);
   })
   .catch(function(error) {
     console.log(error);
   })
 
-
-  
-  // for (var i = 0; i < allData.length; i++) {
-
-
-  //   var orpCard = document.createElement("div");
-  //   orpCard.setAttribute('class', 'orpCard');
-
-  //   var orpNameContainer = document.createElement("div");
-  //   orpNameContainer.setAttribute('class', 'orpNameContainer');
-
-  //   var orpSpanName = document.createElement("span");
-  //   orpSpanName.setAttribute('class', 'orpSpanName');
-
-
-
-  // }
-  
-  
-  
-  // var targetAdress = document.getElementById("ondeAddress");
-  // var targetName = document.getElementById('oneName');
-  // console.log(targetAdress, targetName);
-  // changeThings(targetAdress, targetName, event);
-  // console.log(event);
 }
+    function getOneRestPage (allData) {
+      console.log(allData);
+      
+      // var orpDiv = document.getElementById('orpDiv')
+      // var orpCard = document.createElement("div");
+      //   orpCard.setAttribute('class', 'orpCard');
+      //   orpCard.innerHTML = 'PRUEBA'
+
+      //   orpDiv.appendChild(orpCard);
+
+
+        const oneRestPage = `
+                          <div id="orpCard" class="person">
+                            <div id="orpImgContainer" class="orpImg">
+                                <img class="img-thumbnail" alt="${allData.name}" src="${allData.featured_image}">
+                            </div>
+                            <div class="nameContainer">
+                                <span id="orpName">${allData.name}</span>
+                            </div>
+                            <div class="orpAddressContainer">
+                                <span id="orpCuisineContainer">${allData.cuisines}</span>
+                            </div>
+
+                            <p class="bio">${allData.average_cost_for_two}</p>
+
+                            <ul>
+                                      <li><a class="#menu" href="#home">Menu</a></li>
+                                      <li><a href="#reviews">Reviews</a></li>
+                                      <li><a href="#takeme">Take me there</a></li>
+                              </ul>
+
+                          </div>
+                        `;
+         
+        document.getElementById("restaurantList").innerHTML = oneRestPage
+        
+
+
+        // var orpNameContainer = document.createElement("div");
+        // orpNameContainer.setAttribute('class', 'orpNameContainer');
+
+        // var orpSpanName = document.createElement("span");
+        // orpSpanName.setAttribute('class', 'orpSpanName');
+      
+      // for (var i = 0; i < allData; i++) {
+      //   console.log('algo');
+      // }  // creo que el loop no es necesario (solo hay propiedades de un objeto). Pero no se xq no entra en el loop
+  }
+  
+
 
 
 
