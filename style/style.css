@@ -34,3 +34,34 @@
 
 }
 
+img#oneRestaurant {
+  width: 200px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color:lightgrey;
+}
+
+li {
+  float: left;
+  border-right: 1px solid #ffffff;
+}
+li:last-child {
+  border-right: none
+  }
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px 16px;
+  text-decoration: none;
+}
+li a:hover {
+  background-color:darkgrey;
+}
+

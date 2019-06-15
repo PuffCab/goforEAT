@@ -1,0 +1,121 @@
+
+
+https://developers.zomato.com/api/v2.1/cities?q=new%20york%20city
+
+"location_suggestions": [
+    {
+      "id": 280,
+      "name": "New York City, NY",
+      "country_id": 216,
+      "country_name": "United States",
+      "country_flag_url": "https://b.zmtcdn.com/images/countries/flags/country_216.png",
+      "should_experiment_with": 0,
+      "discovery_enabled": 1,
+      "has_new_ad_format": 0,
+      "is_state": 0,
+      "state_id": 103,
+      "state_name": "New York State",
+      "state_code": "NY"
+    } 
+]
+
+
+https://developers.zomato.com/api/v2.1/cities?q=lisbon
+curl -X GET --header "Accept: application/json" --header "user-key: 761f6ca627cd39bc1f417f361a422990" "https://developers.zomato.com/api/v2.1/cities?q=lisbon"
+
+"location_suggestions": [
+    {
+      "id": 82,
+      "name": "Greater Lisbon",
+      "country_id": 164,
+      "country_name": "Portugal",
+      "country_flag_url": "https://b.zmtcdn.com/images/countries/flags/country_164.png",
+      "should_experiment_with": 0,
+      "discovery_enabled": 0,
+      "has_new_ad_format": 1,
+      "is_state": 0,
+      "state_id": 0,
+      "state_name": "",
+      "state_code": ""
+    }
+]
+
+https://developers.zomato.com/api/v2.1/cities?q=porto
+curl -X GET --header "Accept: application/json" --header "user-key: 761f6ca627cd39bc1f417f361a422990" "https://developers.zomato.com/api/v2.1/cities?q=porto"
+
+"location_suggestions": [
+    {
+      "id": 311,
+      "name": "Porto",
+      "country_id": 164,
+      "country_name": "Portugal",
+      "country_flag_url": "https://b.zmtcdn.com/images/countries/flags/country_164.png",
+      "should_experiment_with": 0,
+      "discovery_enabled": 0,
+      "has_new_ad_format": 1,
+      "is_state": 0,
+      "state_id": 0,
+      "state_name": "",
+      "state_code": ""
+    }
+]
+
+https://developers.zomato.com/api/v2.1/cities?q=dublin
+curl -X GET --header "Accept: application/json" --header "user-key: 761f6ca627cd39bc1f417f361a422990" "https://developers.zomato.com/api/v2.1/cities?q=dublin"
+
+"location_suggestions": [
+    {
+      "id": 91,
+      "name": "Dublin",
+      "country_id": 97,
+      "country_name": "Ireland",
+      "country_flag_url": "https://b.zmtcdn.com/images/countries/flags/country_97.png",
+      "should_experiment_with": 0,
+      "discovery_enabled": 0,
+      "has_new_ad_format": 1,
+      "is_state": 0,
+      "state_id": 0,
+      "state_name": "",
+      "state_code": ""
+    }
+]
+
+https://developers.zomato.com/api/v2.1/cities?q=london
+curl -X GET --header "Accept: application/json" --header "user-key: 761f6ca627cd39bc1f417f361a422990" "https://developers.zomato.com/api/v2.1/cities?q=london"
+
+"location_suggestions": [
+    {
+      "id": 61,
+      "name": "London",
+      "country_id": 215,
+      "country_name": "United Kingdom",
+      "country_flag_url": "https://b.zmtcdn.com/images/countries/flags/country_215.png",
+      "should_experiment_with": 0,
+      "discovery_enabled": 0,
+      "has_new_ad_format": 0,
+      "is_state": 0,
+      "state_id": 142,
+      "state_name": "England and Wales",
+      "state_code": "England and Wales"
+    }
+]
+
+https://developers.zomato.com/api/v2.1/cities?q=milan
+curl -X GET --header "Accept: application/json" --header "user-key: 761f6ca627cd39bc1f417f361a422990" "https://developers.zomato.com/api/v2.1/cities?q=milan"
+
+"location_suggestions": [
+    {
+      "id": 258,
+      "name": "Milan",
+      "country_id": 99,
+      "country_name": "Italy",
+      "country_flag_url": "https://b.zmtcdn.com/images/countries/flags/country_99.png",
+      "should_experiment_with": 0,
+      "discovery_enabled": 0,
+      "has_new_ad_format": 1,
+      "is_state": 0,
+      "state_id": 0,
+      "state_name": "",
+      "state_code": ""
+    }
+]
