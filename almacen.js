@@ -1,32 +1,40 @@
-var cityId;
-function searchCity(cityId) {
- 
- var url = "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city";
- console.log(url);
 
- fetch(url, {
-     method: "GET",
-     headers: {
-         "user-key": "761f6ca627cd39bc1f417f361a422990"
-     }
- 
- })
- .then(function (res) {
-     return res.json();
- })
- .then(function (data) {
-   var allData = data.restaurants;
-   
-   getRestaurans(allData);
-   
-   console.log(allData[0].restaurant.location.address);
-     
- })
- .catch(function (error) {
-     console.log(error)
- });
+// codigo antes de modificaciones con Amy y Selda. No funciona, aunque coge los valores del onclick
+
+var cityId;
+function searchCity(cityNumber) {
+ cityId = cityNumber
 };
 console.log(cityId);
+
+function test(click){
+  alert("You chossed " + cityId);
+}
+var url = "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city";
+
+fetch(url, {
+    method: "GET",
+    headers: {
+        "user-key": "761f6ca627cd39bc1f417f361a422990"
+    }
+
+})
+.then(function (res) {
+    return res.json();
+})
+.then(function (data) {
+  var allData = data.restaurants
+  searchCity(cityNumber)
+  getRestaurans(allData)
+  console.log(allData[0].restaurant.location.address);
+    
+
+
+})
+.catch(function (error) {
+    console.log(error)
+});
+
 
 // var data = {
 //     "results_found": 42764,
@@ -197,13 +205,11 @@ console.log(cityId);
 // var allData = data.restaurants
   function getRestaurans(allData) {
      var restaurantList = document.getElementById("restaurantList");
-     restaurantList.innerHTML = ""; // to empty search and allow new search
       // console.log("2")
      for (var i = 0; i < allData.length; i++) {
       //  console.log("3")
       var card = document.createElement("div");
       card.setAttribute("class", "card")
-      card.setAttribute('id', allData[i].restaurant.id);
 
       
 
@@ -213,28 +219,19 @@ console.log(cityId);
       restaurantImg.setAttribute("alt", allData[i].restaurant.name);
       restaurantImg.setAttribute("class", "img-thumbnail");
 
-// console.log(allData[i])
+
 
       //add restaurant name 
 
       
       var nameContainer = document.createElement("div");
       nameContainer.setAttribute("class", "nameContainer");
-      nameContainer.setAttribute("id", "nameDiv" + i);
       var spanName = document.createElement("span");
       spanName.setAttribute("class", "name");
-      spanName.setAttribute("id", allData[i].restaurant.id);
       var restaurantName = allData[i].restaurant.name
       spanName.innerHTML = restaurantName
+      
 
-      //add eventlistener to name container. to get name in One Restaurant Page (Orp)
-      // nameContainer.addEventListener('click', () => { //study callback functions
-      //   // console.log(i)
-      //   var targetElement = document.getElementById('oneName');
-      //   console.log(targetElement);
-      //   changeName(targetElement, event)
-        
-      // })
 
        //add cuisine type
 
@@ -254,28 +251,16 @@ console.log(cityId);
        spanAddress.setAttribute("class", "address");
        var restaurantAddress = allData[i].restaurant.location.address;
        spanAddress.innerHTML = restaurantAddress;
-
-      //  //add eventlistener to address container. to get address in orp
-
-      //  addressContainer.addEventListener('click', ()=>{
-      //    var targetElement = document.getElementById("ondeAddress");
-      //    console.log(targetElement);
-      //    changeAddress(targetElement, event);
-      //  })
-
-        // intento de anhadir el event a toda la card para cambiar al mismo tiempo nombre y direccion (editado lo anterior por si no funciona esto)
-        //como no funciona lo de la linea anterior. Edito e intento con un loop
        
-        card.addEventListener('click', function() {
-         
-          var cardRestaurantId = card.getAttribute("id");
-          console.log(card)
-          console.log('funciona') 
-          secondFetchFunction(cardRestaurantId);
-        }) 
+
+
+
+
 
        
-       
+
+
+
 
        //add created elements
 
@@ -290,82 +275,263 @@ console.log(cityId);
 
        restaurantList.appendChild(card);
        //  console.log("4")
+
+
     
      }
-     
 
   }
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+// codigo moficado con Amy y Selda... observar bien // 
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+var cityId;
 
-  // function changeName(target, event) {
-  //   console.log(event)
-  //   // var restaurantName = 
-  //   // var oneName = document.getElementById("oneName");
-  //   // console.log(restaurantName)
+function letsTry (cityId) {
     
-  //     target.innerHTML = event.target.textContent
-  //   }
-
-    // function changeThings(targetName, targetAdress, event) {
-
-    //   console.log(event)
-
-    //   targetName.innerHTML = event.target.textContent
-    //   targetAdress.innerHTML = event.target.textContent
-
-    // }
+    
   
 
-function secondFetchFunction(cardRestaurantId) {
 
-  fetch("https://developers.zomato.com/api/v2.1/restaurant?res_id=" + cardRestaurantId
-    , {
+ fetch("https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city", {
     method: "GET",
     headers: {
-      "user-key" : "761f6ca627cd39bc1f417f361a422990"
+        //"user-key": "761f6ca627cd39bc1f417f361a422990"
+        "user-key": "f31a66a238787af179033dfdb32c6e89"
     }
-  })
-  .then(function(res){
-    return res.json();
-  })
-  .then(function(data) {
-    var allData = data;
-    console.log(cardRestaurantId);
-    //callFunctionToCreateORP()
 
-    console.log(allData);
-  })
-  .catch(function(error) {
-    console.log(error);
-  })
+})
+.then(function (res) {
+  console.log(res)  
+  return res.json();
+    
+})
+.then(function (data) {
+  var allData = data.restaurants
+  getRestaurans(allData)
+  console.log(allData[0].restaurant.location.address);
+    
 
 
-  
-  // for (var i = 0; i < allData.length; i++) {
-
-
-  //   var orpCard = document.createElement("div");
-  //   orpCard.setAttribute('class', 'orpCard');
-
-  //   var orpNameContainer = document.createElement("div");
-  //   orpNameContainer.setAttribute('class', 'orpNameContainer');
-
-  //   var orpSpanName = document.createElement("span");
-  //   orpSpanName.setAttribute('class', 'orpSpanName');
-
-
-
-  // }
-  
-  
-  
-  // var targetAdress = document.getElementById("ondeAddress");
-  // var targetName = document.getElementById('oneName');
-  // console.log(targetAdress, targetName);
-  // changeThings(targetAdress, targetName, event);
-  // console.log(event);
+})
+.catch(function (error) {
+    console.log(error)
+});
 }
 
 
+  function getRestaurans(allData) {
+    
+     var restaurantList = document.getElementById("restaurantList");
+     restaurantList.innerHTML = "";
+      // console.log("2")
+     for (var i = 0; i < allData.length; i++) {
+      //  console.log("3")
+      var card = document.createElement("div");
+      card.setAttribute("class", "card")
+
+      
+
+      //add rest. Image
+      var restaurantImg = document.createElement("img");
+      restaurantImg.setAttribute("src", allData[i].restaurant.featured_image);
+      restaurantImg.setAttribute("alt", allData[i].restaurant.name);
+      restaurantImg.setAttribute("class", "img-thumbnail");
+      console.log(allData[10].restaurant.name)
 
 
+
+      //add restaurant name 
+
+      
+      var nameContainer = document.createElement("div");
+      nameContainer.setAttribute("class", "nameContainer");
+      var spanName = document.createElement("span");
+      spanName.setAttribute("class", "name");
+      var restaurantName = allData[i].restaurant.name
+      spanName.innerHTML = restaurantName
+      
+
+
+       //add cuisine type
+
+       var cuisineContainer = document.createElement("div");
+       cuisineContainer.setAttribute("class", "cuisineContainer");
+       var spanCuisine = document.createElement("span");
+       spanCuisine.setAttribute("class", "cuisine");
+       var cuisineType = allData[i].restaurant.cuisines;
+       spanCuisine.innerHTML = cuisineType; 
+
+
+       //add restaurant address
+
+       var addressContainer = document.createElement("div");
+       addressContainer.setAttribute("class", "addressContainer");
+       var spanAddress = document.createElement("span");
+       spanAddress.setAttribute("class", "address");
+       var restaurantAddress = allData[i].restaurant.location.address;
+       spanAddress.innerHTML = restaurantAddress;
+       
+
+
+
+
+
+       
+
+
+
+
+       //add created elements
+
+       
+       nameContainer.appendChild(spanName);
+       cuisineContainer.appendChild(spanCuisine)
+       addressContainer.appendChild(spanAddress)
+       card.appendChild(restaurantImg);
+       card.appendChild(nameContainer);
+       card.appendChild(cuisineContainer);
+       card.appendChild(addressContainer)
+
+       restaurantList.appendChild(card);
+       //  console.log("4")
+
+
+    
+     }
+
+  }
+
+
+
+
+  /////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+  //Modificacion del 14.06 a 19:27. Creados los addeventlistener para CARD. modifica address y name al mismo tiempo, pero solo con el elemento clickado
+  /////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+  function getRestaurans(allData) {
+    var restaurantList = document.getElementById("restaurantList");
+    restaurantList.innerHTML = ""; // to empty search and allow new search
+     // console.log("2")
+    for (var i = 0; i < allData.length; i++) {
+     //  console.log("3")
+     var card = document.createElement("div");
+     card.setAttribute("class", "card")
+
+     
+
+     //add rest. Image
+     var restaurantImg = document.createElement("img");
+     restaurantImg.setAttribute("src", allData[i].restaurant.featured_image);
+     restaurantImg.setAttribute("alt", allData[i].restaurant.name);
+     restaurantImg.setAttribute("class", "img-thumbnail");
+
+// console.log(allData[i])
+
+     //add restaurant name 
+
+     
+     var nameContainer = document.createElement("div");
+     nameContainer.setAttribute("class", "nameContainer");
+     nameContainer.setAttribute("id", "nameDiv" + i);
+     var spanName = document.createElement("span");
+     spanName.setAttribute("class", "name");
+     spanName.setAttribute("id", allData[i].restaurant.id);
+     var restaurantName = allData[i].restaurant.name
+     spanName.innerHTML = restaurantName
+
+     //add eventlistener to name container. to get name in One Restaurant Page (Orp)
+     // nameContainer.addEventListener('click', () => { //study callback functions
+     //   // console.log(i)
+     //   var targetElement = document.getElementById('oneName');
+     //   console.log(targetElement);
+     //   changeName(targetElement, event)
+       
+     // })
+
+      //add cuisine type
+
+      var cuisineContainer = document.createElement("div");
+      cuisineContainer.setAttribute("class", "cuisineContainer");
+      var spanCuisine = document.createElement("span");
+      spanCuisine.setAttribute("class", "cuisine");
+      var cuisineType = allData[i].restaurant.cuisines;
+      spanCuisine.innerHTML = cuisineType; 
+
+
+      //add restaurant address
+
+      var addressContainer = document.createElement("div");
+      addressContainer.setAttribute("class", "addressContainer");
+      var spanAddress = document.createElement("span");
+      spanAddress.setAttribute("class", "address");
+      var restaurantAddress = allData[i].restaurant.location.address;
+      spanAddress.innerHTML = restaurantAddress;
+
+     //  //add eventlistener to address container. to get address in orp
+
+     //  addressContainer.addEventListener('click', ()=>{
+     //    var targetElement = document.getElementById("ondeAddress");
+     //    console.log(targetElement);
+     //    changeAddress(targetElement, event);
+     //  })
+
+       // intento de anhadir el event a toda la card para cambiar al mismo tiempo nombre y direccion (editado lo anterior por si no funciona esto)
+      card.addEventListener('click', ()=>{
+       var targetAdress = document.querySelector("ondeAddress");
+       var targetName = document.getElementById('oneName');
+       console.log(targetAdress, targetName);
+       changeThings(targetAdress, targetName, event);
+       console.log(event);
+     })
+
+      
+      
+
+      //add created elements
+
+      
+      nameContainer.appendChild(spanName);
+      cuisineContainer.appendChild(spanCuisine)
+      addressContainer.appendChild(spanAddress)
+      card.appendChild(restaurantImg);
+      card.appendChild(nameContainer);
+      card.appendChild(cuisineContainer);
+      card.appendChild(addressContainer)
+
+      restaurantList.appendChild(card);
+      //  console.log("4")
+   
+    }
+    
+
+ }
+
+ // function changeName(target, event) {
+ //   console.log(event)
+ //   // var restaurantName = 
+ //   // var oneName = document.getElementById("oneName");
+ //   // console.log(restaurantName)
+   
+ //     target.innerHTML = event.target.textContent
+ //   }
+
+   function changeThings(targetName, targetAdress, event) {
+
+     console.log(event)
+
+     targetName.innerHTML = event.target.textContent
+     targetAdress.innerHTML = event.target.textContent
+
+   }
+  
 
