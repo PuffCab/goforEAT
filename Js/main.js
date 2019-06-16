@@ -1,8 +1,8 @@
-// window.onload = function (){
+window.onload = function (){
  
-//   createFirstPage();
+  createFirstPage();
 
-// };
+};
 
 function createFirstPage() {
 
@@ -10,7 +10,7 @@ function createFirstPage() {
   const firstList = `
                         <div>ARE YOU HUNGRY??
                         <select id="selectCity" onchange="searchCity(value)">
-                            <option>Selec city</option>
+                            <option selected disabled>Select city</option>
                             <option value="280">New York City</option>
                             <option value="82">Lisbon</option>
                             <option value="311">Porto</option>
@@ -27,6 +27,7 @@ document.getElementById("restaurantList").innerHTML = firstList
 
 var cityId;
 function searchCity(cityId) {
+  console.log("cargada lista ciudad");
  
  var url = "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city";
  console.log(url);
@@ -353,6 +354,7 @@ function secondFetchFunction(cardRestaurantId) {
 }
     function getOneRestPage (allData) {
       console.log(allData);
+      console.log("cargado un restaurante");
       
       // var orpDiv = document.getElementById('orpDiv')
       // var orpCard = document.createElement("div");
