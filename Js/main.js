@@ -282,22 +282,13 @@ console.log(cityId);
        spanAddress.setAttribute("class", "address");
        var restaurantAddress = allData[i].restaurant.location.address;
        spanAddress.innerHTML = restaurantAddress;
-
-      //  //add eventlistener to address container. to get address in orp
-
-      //  addressContainer.addEventListener('click', ()=>{
-      //    var targetElement = document.getElementById("ondeAddress");
-      //    console.log(targetElement);
-      //    changeAddress(targetElement, event);
-      //  })
-
-        // intento de anhadir el event a toda la card para cambiar al mismo tiempo nombre y direccion (editado lo anterior por si no funciona esto)
-        //como no funciona lo de la linea anterior. Edito e intento con un loop
        
+
+       //Added click event to Restaurant Card
+
         card.addEventListener('click', function() {
          
-          // var cardRestaurantId = card.getAttribute("id");
-          var cardRestaurantId = event.currentTarget.id;
+          var cardRestaurantId = event.currentTarget.id; //with event.target.id, we got info from the element on clicked , not from the "parent" with the event asssigned
           console.log(card);
           console.log(event.currentTarget.id);
           
@@ -356,12 +347,8 @@ function secondFetchFunction(cardRestaurantId) {
       console.log(allData);
       console.log("cargado un restaurante");
       
-      // var orpDiv = document.getElementById('orpDiv')
-      // var orpCard = document.createElement("div");
-      //   orpCard.setAttribute('class', 'orpCard');
-      //   orpCard.innerHTML = 'PRUEBA'
-
-      //   orpDiv.appendChild(orpCard);
+     
+      
 
 
         const oneRestPage = `
@@ -379,7 +366,7 @@ function secondFetchFunction(cardRestaurantId) {
                             <p class="bio">${allData.average_cost_for_two}</p>
 
                             <ul>
-                                      <li><a class="#menu" href="#home">Menu</a></li>
+                                      <li><a class="#menu" href="${allData.menu_url}">Menu</a></li>
                                       <li><a href="#reviews">Reviews</a></li>
                                       <li><a href="#takeme">Take me there</a></li>
                               </ul>
@@ -391,15 +378,6 @@ function secondFetchFunction(cardRestaurantId) {
         
 
 
-        // var orpNameContainer = document.createElement("div");
-        // orpNameContainer.setAttribute('class', 'orpNameContainer');
-
-        // var orpSpanName = document.createElement("span");
-        // orpSpanName.setAttribute('class', 'orpSpanName');
-      
-      // for (var i = 0; i < allData; i++) {
-      //   console.log('algo');
-      // }  // creo que el loop no es necesario (solo hay propiedades de un objeto). Pero no se xq no entra en el loop
   }
   
 
