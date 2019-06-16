@@ -7,43 +7,89 @@
   
 }
 
+.footer {
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+   display: block;
+   text-align: center;
+   padding: 8px 0;
+   background: #fafafa;
+   box-shadow: 0 -2px 5px 0 rgba(0,0,0,.1);
+   border-top: 1px solid #dee2e6;
+
+}
 
 #restaurantList {
-    border: 1px solid #ddd;
-  border-radius: 4px;
+   
   padding: 5px;
-  width: 150px;
+  
+}
+
+.homeIntro {
+  text-align: center;
+
+}
+
+.homeIntro h1 {
+  
+    margin-top: 20vh;
+
+}
+#selectCity {
+
+  margin-top: 10vh;
+}
+
+.card {
+  padding: 10px;
+  margin: 10px 0;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.1);
+
+}
+
+.card .img-thumbnail {
+  border: none
 }
 
 
 .name {
-  background-color: grey;
+  font-weight: bold;
   font-size: 1.17em;
 }
 
 .cuisine {
-  background-color: cadetblue;
+  display: inline-block;
+  line-height: 120%;
   font-size: .75em;
+  color: #999999
   
 }
 
 .address {
-
-  background-color: lightgray;
-  font-size: .75em
+  
+  display: inline-block;
+  line-height: 110%;
+  
+  font-size: .9em;
 
 }
 
-img#oneRestaurant {
-  width: 200px;
+.price {
+
+  font-style: italic;
+  font-size: .8em;
 }
 
-ul {
+.person ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  background-color:lightgrey;
+  overflow: visible;
+  margin-top: 20px;
+  display: inline-block;
+  
 }
 
 li {
@@ -55,11 +101,13 @@ li:last-child {
   }
 
 li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 10px 16px;
-  text-decoration: none;
+  border-radius: 15px;
+  background: white;
+  border: 1px solid #999;
+  margin: 0 .3em;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+  display: inline-block;
+  padding: .5em 1em;
 }
 li a:hover {
   background-color:darkgrey;

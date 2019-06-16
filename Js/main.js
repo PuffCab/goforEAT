@@ -1,3 +1,5 @@
+// key APi google maps AIzaSyAZKu0wgOwlzZDeS4KcPVis9wrwLw6Jips 
+
 window.onload = function (){
  
   createFirstPage();
@@ -8,7 +10,7 @@ function createFirstPage() {
 
   console.log("cargada funcion")
   const firstList = `
-                        <div>ARE YOU HUNGRY??
+                        <div class="homeIntro"><h1>ARE YOU HUNGRY??</h1>
                         <select id="selectCity" onchange="searchCity(value)">
                             <option selected="true" disabled="disabled">Select city</option>
                             <option value="280">New York City</option>
@@ -319,34 +321,35 @@ console.log(cityId);
 
   
 
-function secondFetchFunction(cardRestaurantId) {
+    function secondFetchFunction(cardRestaurantId) {
 
-  fetch("https://developers.zomato.com/api/v2.1/restaurant?res_id=" + cardRestaurantId
-    , {
-    method: "GET",
-    headers: {
-      "user-key" : "761f6ca627cd39bc1f417f361a422990"
+        fetch("https://developers.zomato.com/api/v2.1/restaurant?res_id=" + cardRestaurantId
+          , {
+          method: "GET",
+          headers: {
+            "user-key" : "761f6ca627cd39bc1f417f361a422990"
+          }
+        })
+        .then(function(res){
+          return res.json();
+        })
+        .then(function(data) {
+          var allData = data;
+          console.log(allData.location);
+          getOneRestPage(allData);
+
+          // console.log(allData);
+        })
+        .catch(function(error) {
+          console.log(error);
+        })
+
     }
-  })
-  .then(function(res){
-    return res.json();
-  })
-  .then(function(data) {
-    var allData = data;
-    console.log(allData.location);
-    getOneRestPage(allData);
 
-    // console.log(allData);
-  })
-  .catch(function(error) {
-    console.log(error);
-  })
-
-}
-    function getOneRestPage (allData) {
-      console.log(allData);
-      console.log("cargado un restaurante");
-      
+  function getOneRestPage (allData) {
+            console.log(allData);
+            console.log("cargado un restaurante");
+            
      
       
 
@@ -357,18 +360,21 @@ function secondFetchFunction(cardRestaurantId) {
                                 <img class="img-thumbnail" alt="${allData.name}" src="${allData.featured_image}">
                             </div>
                             <div class="nameContainer">
-                                <span id="orpName">${allData.name}</span>
+                                <span id="orpName" class="name">${allData.name}</span>
                             </div>
+                            <div class="orpCuisineContainer">
+                                <span id="orpCuisine" class="cuisine">${allData.cuisines}</span>
+                                <p class="price">Average price for two: ${allData.average_cost_for_two}$</p>
+                            </div>
+                            
                             <div class="orpAddressContainer">
-                                <span id="orpCuisineContainer">${allData.cuisines}</span>
+                                <span id="orpAddress" class="address">${allData.location.address}</span>
                             </div>
-
-                            <p class="bio">${allData.average_cost_for_two}</p>
 
                             <ul>
                                       <li><a class="#menu" href="${allData.menu_url}">Menu</a></li>
                                       <li><a href="#reviews">Reviews</a></li>
-                                      <li><a href="#takeme">Take me there</a></li>
+                                      <li><a onclick="createMap()">Take me there</a></li>
                               </ul>
 
                           </div>
@@ -376,9 +382,22 @@ function secondFetchFunction(cardRestaurantId) {
          
         document.getElementById("restaurantList").innerHTML = oneRestPage
         
+  }
 
+
+  function createMap(allData) {
+    
+    console.log("llega aqui")
+    var restLocation = { 
+        lat:allData.latitude,
+        lng:allData.longitude
+    };
+
+    console.log(restLocation.lat);
 
   }
+
+
   
 
 
