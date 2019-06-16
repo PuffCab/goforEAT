@@ -10,7 +10,7 @@ function createFirstPage() {
   const firstList = `
                         <div>ARE YOU HUNGRY??
                         <select id="selectCity" onchange="searchCity(value)">
-                            <option selected disabled>Select city</option>
+                            <option selected="true" disabled="disabled">Select city</option>
                             <option value="280">New York City</option>
                             <option value="82">Lisbon</option>
                             <option value="311">Porto</option>
