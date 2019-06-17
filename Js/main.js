@@ -350,7 +350,9 @@ console.log(cityId);
             console.log(allData);
             console.log("cargado un restaurante");
             
-     
+        // var lat = allData.location.latitude;
+        // var long = allData.location.longitude;
+        // console.log(lat)
       
 
 
@@ -374,7 +376,7 @@ console.log(cityId);
                             <ul>
                                       <li><a class="#menu" href="${allData.menu_url}">Menu</a></li>
                                       <li><a href="#reviews">Reviews</a></li>
-                                      <li><a onclick="createMap()">Take me there</a></li>
+                                      <li><a onclick="initMap(${allData.location.latitude}, ${allData.location.longitude})">Take me there</a></li>
                               </ul>
 
                           </div>
@@ -385,17 +387,34 @@ console.log(cityId);
   }
 
 
-  function createMap(allData) {
+  // function createMap(lat, long) {
+  //     var latitud = lat
+  //     var longitud = long
+  //   console.log("llega aqui")
+  //   console.log(latitud, longitud)
     
-    console.log("llega aqui")
-    var restLocation = { 
-        lat:allData.latitude,
-        lng:allData.longitude
-    };
 
-    console.log(restLocation.lat);
+  // }
+  function initMap(lat, long) {
 
-  }
+    const restMap =`
+    <div id="map"></div>
+    `
+    document.getElementById("restaurantList").innerHTML = restMap
+
+
+    console.log("funcion mapa")
+    var latitud = lat
+    var longitud = long
+      // The location of Uluru
+      var uluru = {lat: latitud, lng: longitud};
+      // The map, centered at Uluru
+      var map = new google.maps.Map(
+          document.getElementById('map'), {zoom: 15, center: uluru});
+      // The marker, positioned at Uluru
+      var marker = new google.maps.Marker({position: uluru, map: map});
+
+    }
 
 
   
