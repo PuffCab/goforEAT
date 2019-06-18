@@ -18,13 +18,17 @@
             
               
         
-              
+        <!-- <div id="posts">POSTS DEL CHAT</div> -->
             
         
-        <footer>
+        <footer id="footerHome">
         <div class="footer">
         <button id="homeBtn" type="button" onclick="createFirstPage()">HOME</button>
-        <button id="homeBtn" type="button" onclick="">OTRO</button>
+        <button id="homeBtn" type="button" onclick="goToChat()">Chat</button>
+        <!-- <button id="logIn" type ="button" onclick="googleSignIn()">log In</button>
+        <input id="text" type="text">
+        <button onclick="writeNewPost()">Send</button> -->
+        </div>
         </footer>
 
     
@@ -41,6 +45,27 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.2.0/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDtyiX617sVWvldszN3cTIhnzpkBqTc834",
+    authDomain: "go4eatchat.firebaseapp.com",
+    databaseURL: "https://go4eatchat.firebaseio.com",
+    projectId: "go4eatchat",
+    storageBucket: "go4eatchat.appspot.com",
+    messagingSenderId: "292599392262",
+    appId: "1:292599392262:web:78edc93ff68de728"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
     <script type="text/javascript" src="Js/main.js"></script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZKu0wgOwlzZDeS4KcPVis9wrwLw6Jips&callback=initMap">

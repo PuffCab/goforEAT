@@ -238,6 +238,10 @@ console.log(cityId);
       
 
       //add rest. Image
+      var restaurantImgContainer = document.createElement("div");
+      restaurantImgContainer.setAttribute("class", "imgContainer" );
+      restaurantImgContainer.setAttribute("id", "restListImgContainer" );
+
       var restaurantImg = document.createElement("img");
       restaurantImg.setAttribute("src", allData[i].restaurant.featured_image);
       restaurantImg.setAttribute("alt", allData[i].restaurant.name);
@@ -302,11 +306,11 @@ console.log(cityId);
 
        //add created elements
 
-       
+       restaurantImgContainer.appendChild(restaurantImg);
        nameContainer.appendChild(spanName);
        cuisineContainer.appendChild(spanCuisine)
        addressContainer.appendChild(spanAddress)
-       card.appendChild(restaurantImg);
+       card.appendChild(restaurantImgContainer);
        card.appendChild(nameContainer);
        card.appendChild(cuisineContainer);
        card.appendChild(addressContainer)
@@ -417,10 +421,209 @@ console.log(cityId);
     }
 
 
+    function goToChat () {
+
+      document.getElementById("footerHome").style.display = "none"
+
+      const chatPage = `
+              <div id="posts">POSTS DEL CHAT</div>
+              <footer>
+                <div id="footerChat" class="container">
+                <button id="logIn" type ="button" onclick="googleSignIn()">log In</button>
+                <button id="homeBtn" type="button" onclick="goHome()">HOME</button>
+                <input id="text" type="text">
+                <button onclick="writeNewPost(); document.getElementById('text').value = ''">Send</button>
+                </div>
+              </footer>                
+              `
+          document.getElementById("restaurantList").innerHTML = chatPage
+
+
+          
+
+    }
   
+  function goHome() {
+    createFirstPage();
+    document.getElementById("footerHome").style.display = "block";
+  }
+
+    let userName = "";
+    let userMail = "";
+
+    
+
+    function googleSignIn () {
+      console.log("googlesing in function")
+      var provider = new firebase.auth.GoogleAuthProvider();
+
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        console.log("logg in");
+        console.log(user);
+        getPosts();
+        // ...
+      }).catch(function(error) {
+        
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+        console.log(error)
+      });
+
+    }
+  
+    function writePost() {
+
+      var database = firebase.database();
+      let message = document.getElementById("text").value;
+      let user= firebase.auth().currentUser.displayName;
+      console.log(message)
+      console.log(user)
+
+       // A post entry.
+       var postData = {
+        author: username,
+        body: userInput,
+        date: new Date().toISOString()
+         
+      };
+
+      // Get a Key for a new Post.
+      var newPostKey = firebase
+        .database()
+        .ref()
+        .child('posts')
+        .push().key
+
+
+      // Write the new post's data simultanously in the posts list and the user's post list.
+      var updates = {};
+      updates['/posts/' + newPostKey] = postData;
+
+      firebase
+        .database()
+        .ref()
+        .update(updates);
+
+      
+          
+      // getPosts()
+      firebase.database().ref().child('posts').push().key({
+        user,
+        message,
+        date: new Date()
+      });
+      
+    }
+
+    function writeNewPost() {
+
+      
+
+      console.log(" write new post");
+      const userInput = document.querySelector('input').value;
+      let user= firebase.auth().currentUser.displayName;
+      
+
+       // A post entry.
+       var postData = {
+        author: user,
+        body: userInput,
+        date: new Date().toISOString()
+         
+      };
+      console.log(postData);
+
+      // Get a Key for a new Post.
+      var newPostKey = firebase
+        .database()
+        .ref()
+        .child('posts')
+        .push().key
+
+
+      // Write the new post's data simultanously in the posts list and the user's post list.
+      var updates = {};
+      updates['/posts/' + newPostKey] = postData;
+
+      firebase
+        .database()
+        .ref()
+        .update(updates);
+
+
+        // getPosts()
+    
+    }
+
+    function getPosts() {
+
+      const postsDiv = document.querySelector('#posts');
+
+      firebase
+        .database()
+        .ref('posts')
+        .on('value', function(data) {
+          console.log(data.val());
+
+          const allPosts = data.val();
+
+          let template = "";
+          for (key in allPosts) {
+            console.log(allPosts[key].author);
+            template +=`
+                
+                  
+                    <div class="msg_history">
+                            <div class="incoming_msg">
+                              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                              <div class="received_msg">
+                                <div class="received_withd_msg">
+                                  <p>Text recieved msg</p>
+                                  <span class="time_date"> Fecha recieved msg</span></div>
+                              </div>
+                            </div>
+                            <div class="outgoing_msg">
+                                <div class="sent_msg">
+                                  <p>${allPosts[key].body}</p>
+                                  <span class="time_date">${allPosts[key].date}   </span> </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                        `;
+          }
+
+            postsDiv.innerHTML = template;
+
+
+              
+          });
+          
+
+    }
 
 
 
 
+//Este es tu ID de cliente  292599392262-qk4t09d9so37h8vjhi9bqcpsusdaf6co.apps.googleusercontent.com
+// Este es tu secreto de cliente o_KS-mDuh-l8ZVzZlCf1e43w
+//refresh_token": "1/_kvqEeDxyfnv9IwwqvDlKF0raGex3RKweEU9RhsHQAHpcOU3EGrsmNgociXAdSds
 
 
+// commented template,va dentro de los backticks
+// <div id="${allPosts[key].author}">
+//                 <p>Author: ${allPosts[key].author}</p>
+//                 <p>Message: ${allPosts[key].body}</p>
+//                 <p>Date : ${allPosts[key].date}</p>
+//               </div>
