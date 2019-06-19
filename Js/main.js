@@ -594,8 +594,9 @@ console.log(cityId);
                             </div>
                             <div class="outgoing_msg">
                                 <div class="sent_msg">
+                                  <p>${allPosts[key].author}</p>
                                   <p>${allPosts[key].body}</p>
-                                  <span class="time_date">${allPosts[key].date}   </span> </div>
+                                  <span class="time_date">${allPosts[key].date}</span> </div>
                                 </div>
                             </div>
                           </div>
