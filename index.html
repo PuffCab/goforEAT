@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- below link for predefined icons only -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <title>Go for Eat</title>
 </head>
 
@@ -15,7 +18,7 @@
    
         <div id="restaurantList">1)Home page</div>
 
-            
+            <div></div>
               
         
         <!-- <div id="posts">POSTS DEL CHAT</div> -->
@@ -23,8 +26,9 @@
         
         <footer id="footerHome">
         <div class="footer">
-        <button id="homeBtn" type="button" onclick="createFirstPage()">HOME</button>
-        <button id="homeBtn" type="button" onclick="goToChat()">Chat</button>
+        <button id="homeBtn" type="button" onclick="createFirstPage()"><i style="font-size:30px" class="fa">&#xf015;</i></button>
+        <button id="homeBtn" type="button" onclick="goToChat()"><i style='font-size:30px' class='fas'>&#xf086;</i></button>
+        <button id="homeBtn" class="backBtn" type="button" onclick="goBack()"><i class="fa fa-arrow-left"></i></button>
         <!-- <button id="logIn" type ="button" onclick="googleSignIn()">log In</button>
         <input id="text" type="text">
         <button onclick="writeNewPost()">Send</button> -->

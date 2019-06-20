@@ -1,7 +1,7 @@
 // key APi google maps AIzaSyAZKu0wgOwlzZDeS4KcPVis9wrwLw6Jips 
 
-window.onload = function (){
- 
+window.onload = function () {
+
   createFirstPage();
 
 };
@@ -23,40 +23,41 @@ function createFirstPage() {
                         </select>
                       </div>
                     `
-document.getElementById("restaurantList").innerHTML = firstList
+  document.getElementById("restaurantList").innerHTML = firstList
 
 }
 
 var cityId;
-function searchCity(cityId) {
-  console.log("cargada lista ciudad");
- 
- var url = "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city";
- console.log(url);
 
- fetch(url, {
-     method: "GET",
-     headers: {
-         "user-key": "761f6ca627cd39bc1f417f361a422990"
-     }
- 
- })
- .then(function (res) {
-     return res.json();
- })
- .then(function (data) {
-   var allData = data.restaurants;
-   
-   getRestaurans(allData);
-   
-   console.log(allData[0].restaurant.location.address);
-     
- })
- .catch(function (error) {
-     console.log(error)
- });
+function searchCity(cityId) {
+  
+
+  var url = "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityId + "&entity_type=city";
+  console.log(url);
+
+  fetch(url, {
+      method: "GET",
+      headers: {
+        "user-key": "761f6ca627cd39bc1f417f361a422990"
+      }
+
+    })
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (data) {
+      var allData = data.restaurants;
+
+      getRestaurans(allData, cityId);
+
+      console.log(allData[0].restaurant.location.address);
+
+    })
+    .catch(function (error) {
+      console.log(error)
+    });
 };
-console.log(cityId);
+
 
 // var data = {
 //     "results_found": 42764,
@@ -225,142 +226,137 @@ console.log(cityId);
 // console.log("1")
 
 // var allData = data.restaurants
-  function getRestaurans(allData) {
-     var restaurantList = document.getElementById("restaurantList");
-     restaurantList.innerHTML = ""; // to empty search and allow new search
-      // console.log("2")
-     for (var i = 0; i < allData.length; i++) {
-      //  console.log("3")
-      var card = document.createElement("div");
-      card.setAttribute("class", "card")
-      card.setAttribute('id', allData[i].restaurant.id);
-
-      
-
-      //add rest. Image
-      var restaurantImgContainer = document.createElement("div");
-      restaurantImgContainer.setAttribute("class", "imgContainer" );
-      restaurantImgContainer.setAttribute("id", "restListImgContainer" );
-
-      var restaurantImg = document.createElement("img");
-      restaurantImg.setAttribute("src", allData[i].restaurant.featured_image);
-      restaurantImg.setAttribute("alt", allData[i].restaurant.name);
-      restaurantImg.setAttribute("class", "img-thumbnail");
-
-// console.log(allData[i])
-
-      //add restaurant name 
-
-      
-      var nameContainer = document.createElement("div");
-      nameContainer.setAttribute("class", "nameContainer");
-      nameContainer.setAttribute("id", "nameDiv" + i);
-      var spanName = document.createElement("span");
-      spanName.setAttribute("class", "name");
-      spanName.setAttribute("id", allData[i].restaurant.id);
-      var restaurantName = allData[i].restaurant.name
-      spanName.innerHTML = restaurantName
-
-      //add eventlistener to name container. to get name in One Restaurant Page (Orp)
-      // nameContainer.addEventListener('click', () => { //study callback functions
-      //   // console.log(i)
-      //   var targetElement = document.getElementById('oneName');
-      //   console.log(targetElement);
-      //   changeName(targetElement, event)
-        
-      // })
-
-       //add cuisine type
-
-       var cuisineContainer = document.createElement("div");
-       cuisineContainer.setAttribute("class", "cuisineContainer");
-       var spanCuisine = document.createElement("span");
-       spanCuisine.setAttribute("class", "cuisine");
-       var cuisineType = allData[i].restaurant.cuisines;
-       spanCuisine.innerHTML = cuisineType; 
+function getRestaurans(allData, cityId) {
+  console.log(cityId);
+  var restaurantList = document.getElementById("restaurantList");
+  restaurantList.innerHTML = ""; // to empty search and allow new search
+  // console.log("2")
+  for (var i = 0; i < allData.length; i++) {
+    //  console.log("3")
+    var card = document.createElement("div");
+    card.setAttribute("class", "card")
+    card.setAttribute('id', allData[i].restaurant.id);
 
 
-       //add restaurant address
 
-       var addressContainer = document.createElement("div");
-       addressContainer.setAttribute("class", "addressContainer");
-       var spanAddress = document.createElement("span");
-       spanAddress.setAttribute("class", "address");
-       var restaurantAddress = allData[i].restaurant.location.address;
-       spanAddress.innerHTML = restaurantAddress;
-       
+    //add rest. Image
+    var restaurantImgContainer = document.createElement("div");
+    restaurantImgContainer.setAttribute("class", "imgContainer");
+    restaurantImgContainer.setAttribute("id", "restListImgContainer" + " " + cityId);
 
-       //Added click event to Restaurant Card
+    var restaurantImg = document.createElement("img");
+    restaurantImg.setAttribute("src", allData[i].restaurant.featured_image);
+    restaurantImg.setAttribute("alt", allData[i].restaurant.name);
+    restaurantImg.setAttribute("class", "img-thumbnail");
 
-        card.addEventListener('click', function() {
-         
-          var cardRestaurantId = event.currentTarget.id; //with event.target.id, we got info from the element on clicked , not from the "parent" with the event asssigned
-          console.log(card);
-          console.log(event.currentTarget.id);
-          
-          secondFetchFunction(cardRestaurantId);
-        }) 
+    // console.log(allData[i])
 
-       
-       
+    //add restaurant name 
 
-       //add created elements
 
-       restaurantImgContainer.appendChild(restaurantImg);
-       nameContainer.appendChild(spanName);
-       cuisineContainer.appendChild(spanCuisine)
-       addressContainer.appendChild(spanAddress)
-       card.appendChild(restaurantImgContainer);
-       card.appendChild(nameContainer);
-       card.appendChild(cuisineContainer);
-       card.appendChild(addressContainer)
+    var nameContainer = document.createElement("div");
+    nameContainer.setAttribute("class", "nameContainer");
+    nameContainer.setAttribute("id", "nameDiv" + i);
+    var spanName = document.createElement("span");
+    spanName.setAttribute("class", "name");
+    spanName.setAttribute("id", allData[i].restaurant.id);
+    var restaurantName = allData[i].restaurant.name
+    spanName.innerHTML = restaurantName
 
-       restaurantList.appendChild(card);
-       //  console.log("4")
-    
-     }
-     
+    //add eventlistener to name container. to get name in One Restaurant Page (Orp)
+    // nameContainer.addEventListener('click', () => { //study callback functions
+    //   // console.log(i)
+    //   var targetElement = document.getElementById('oneName');
+    //   console.log(targetElement);
+    //   changeName(targetElement, event)
+
+    // })
+
+    //add cuisine type
+
+    var cuisineContainer = document.createElement("div");
+    cuisineContainer.setAttribute("class", "cuisineContainer");
+    var spanCuisine = document.createElement("span");
+    spanCuisine.setAttribute("class", "cuisine");
+    var cuisineType = allData[i].restaurant.cuisines;
+    spanCuisine.innerHTML = cuisineType;
+
+
+    //add restaurant address
+
+    var addressContainer = document.createElement("div");
+    addressContainer.setAttribute("class", "addressContainer");
+    var spanAddress = document.createElement("span");
+    spanAddress.setAttribute("class", "address");
+    var restaurantAddress = allData[i].restaurant.location.address;
+    spanAddress.innerHTML = restaurantAddress;
+
+
+    //Added click event to Restaurant Card
+
+    card.addEventListener('click', function () {
+
+      var cardRestaurantId = event.currentTarget.id; //with event.target.id, we got info from the element on clicked , not from the "parent" with the event asssigned
+      console.log(card);
+      console.log(event.currentTarget.id);
+
+      secondFetchFunction(cardRestaurantId);
+    })
+
+
+
+
+    //add created elements
+
+    restaurantImgContainer.appendChild(restaurantImg);
+    nameContainer.appendChild(spanName);
+    cuisineContainer.appendChild(spanCuisine)
+    addressContainer.appendChild(spanAddress)
+    card.appendChild(restaurantImgContainer);
+    card.appendChild(nameContainer);
+    card.appendChild(cuisineContainer);
+    card.appendChild(addressContainer)
+
+    restaurantList.appendChild(card);
+    //  console.log("4")
 
   }
 
-  
 
-    function secondFetchFunction(cardRestaurantId) {
-
-        fetch("https://developers.zomato.com/api/v2.1/restaurant?res_id=" + cardRestaurantId
-          , {
-          method: "GET",
-          headers: {
-            "user-key" : "761f6ca627cd39bc1f417f361a422990"
-          }
-        })
-        .then(function(res){
-          return res.json();
-        })
-        .then(function(data) {
-          var allData = data;
-          console.log(allData.location);
-          getOneRestPage(allData);
-
-          // console.log(allData);
-        })
-        .catch(function(error) {
-          console.log(error);
-        })
-
-    }
-
-  function getOneRestPage (allData) {
-            console.log(allData);
-            console.log("cargado un restaurante");
-            
-        // var lat = allData.location.latitude;
-        // var long = allData.location.longitude;
-        // console.log(lat)
-      
+}
 
 
-        const oneRestPage = `
+
+function secondFetchFunction(cardRestaurantId) {
+
+  fetch("https://developers.zomato.com/api/v2.1/restaurant?res_id=" + cardRestaurantId, {
+      method: "GET",
+      headers: {
+        "user-key": "761f6ca627cd39bc1f417f361a422990"
+      }
+    })
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (data) {
+      var allData = data;
+      console.log(allData.location);
+      getOneRestPage(allData);
+
+      // console.log(allData);
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+
+}
+
+function getOneRestPage(allData) {
+  console.log(allData);
+  console.log("cargado un restaurante");
+
+
+  const oneRestPage = `
                           <div id="orpCard" class="person">
                             <div id="orpImgContainer" class="orpImg">
                                 <img class="img-thumbnail" alt="${allData.name}" src="${allData.featured_image}">
@@ -385,207 +381,259 @@ console.log(cityId);
 
                           </div>
                         `;
-         
-        document.getElementById("restaurantList").innerHTML = oneRestPage
-        
-  }
+
+  document.getElementById("restaurantList").innerHTML = oneRestPage
+
+}
 
 
-  // function createMap(lat, long) {
-  //     var latitud = lat
-  //     var longitud = long
-  //   console.log("llega aqui")
-  //   console.log(latitud, longitud)
-    
+// function createMap(lat, long) {
+//     var latitud = lat
+//     var longitud = long
+//   console.log("llega aqui")
+//   console.log(latitud, longitud)
 
-  // }
-  function initMap(lat, long) {
 
-    const restMap =`
+// }
+function initMap(lat, long) {
+
+  const restMap = `
     <div id="map"></div>
     `
-    document.getElementById("restaurantList").innerHTML = restMap
+  document.getElementById("restaurantList").innerHTML = restMap
 
 
-    console.log("funcion mapa")
-    var latitud = lat
-    var longitud = long
-      // The location of Uluru
-      var uluru = {lat: latitud, lng: longitud};
-      // The map, centered at Uluru
-      var map = new google.maps.Map(
-          document.getElementById('map'), {zoom: 15, center: uluru});
-      // The marker, positioned at Uluru
-      var marker = new google.maps.Marker({position: uluru, map: map});
+  console.log("funcion mapa")
+  var latitud = lat
+  var longitud = long
+  // The location of Uluru
+  var uluru = {
+    lat: latitud,
+    lng: longitud
+  };
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+    document.getElementById('map'), {
+      zoom: 15,
+      center: uluru
+    });
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+  });
 
-    }
+}
 
 
-    function goToChat () {
+// GO BACK BUTTON FUNCTIONS //
 
-      document.getElementById("footerHome").style.display = "none"
+function goBack() {
 
-      const chatPage = `
+  var div = true
+    if (document.getElementById("restaurantList").contains(document.getElementById("restListImgContainer"))) 
+      {
+        createFirstPage();    
+        console.log("go to Home page");
+      } else if (document.getElementById("restaurantList").contains(document.getElementById("orpCard"))) 
+      {
+        getRestaurans();    
+        console.log("go to lista de restaurantes")
+      } else {
+        createFirstPage();
+        console.log("go to la mierda")
+      }
+
+
+
+  // var restaurantImgContainer = document.getElementById("restListImgContainer")
+  // if ( restaurantImgContainer = true ) {
+  //   console.log(restaurantImgContainer);
+  // } else {
+  //   console.log("no lo encuentro")
+  // };
+
+}
+
+
+
+
+
+
+
+// CHAT FUNCTIONS ///////////
+
+function goToChat() {
+
+  document.getElementById("footerHome").style.display = "none"
+
+  const chatPage = `
               <div id="posts">POSTS DEL CHAT</div>
               <footer>
                 <div id="footerChat" class="container">
                 <button id="logIn" type ="button" onclick="googleSignIn()">log In</button>
+                <button id="logIn" type ="button" onclick="logOut()">logOut</button>
                 <button id="homeBtn" type="button" onclick="goHome()">HOME</button>
                 <input id="text" type="text">
                 <button onclick="writeNewPost(); document.getElementById('text').value = ''">Send</button>
                 </div>
               </footer>                
               `
-          document.getElementById("restaurantList").innerHTML = chatPage
+  document.getElementById("restaurantList").innerHTML = chatPage
 
 
-          
-
-    }
-  
-  function goHome() {
-    createFirstPage();
-    document.getElementById("footerHome").style.display = "block";
-  }
-
-    let userName = "";
-    let userMail = "";
-
-    
-
-    function googleSignIn () {
-      console.log("googlesing in function")
-      var provider = new firebase.auth.GoogleAuthProvider();
-
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        console.log("logg in");
-        console.log(user);
-        getPosts();
-        // ...
-      }).catch(function(error) {
-        
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-        console.log(error)
-      });
-
-    }
-  
-    function writePost() {
-
-      var database = firebase.database();
-      let message = document.getElementById("text").value;
-      let user= firebase.auth().currentUser.displayName;
-      console.log(message)
-      console.log(user)
-
-       // A post entry.
-       var postData = {
-        author: username,
-        body: userInput,
-        date: new Date().toISOString()
-         
-      };
-
-      // Get a Key for a new Post.
-      var newPostKey = firebase
-        .database()
-        .ref()
-        .child('posts')
-        .push().key
 
 
-      // Write the new post's data simultanously in the posts list and the user's post list.
-      var updates = {};
-      updates['/posts/' + newPostKey] = postData;
+}
 
-      firebase
-        .database()
-        .ref()
-        .update(updates);
+function goHome() {
+  createFirstPage();
+  document.getElementById("footerHome").style.display = "block";
+}
 
-      
-          
-      // getPosts()
-      firebase.database().ref().child('posts').push().key({
-        user,
-        message,
-        date: new Date()
-      });
-      
-    }
-
-    function writeNewPost() {
-
-      
-
-      console.log(" write new post");
-      const userInput = document.querySelector('input').value;
-      let user= firebase.auth().currentUser.displayName;
-      
-
-       // A post entry.
-       var postData = {
-        author: user,
-        body: userInput,
-        date: new Date().toISOString()
-         
-      };
-      console.log(postData);
-
-      // Get a Key for a new Post.
-      var newPostKey = firebase
-        .database()
-        .ref()
-        .child('posts')
-        .push().key
+let userName = "";
+let userMail = "";
 
 
-      // Write the new post's data simultanously in the posts list and the user's post list.
-      var updates = {};
-      updates['/posts/' + newPostKey] = postData;
 
-      firebase
-        .database()
-        .ref()
-        .update(updates);
+function googleSignIn() {
+  console.log("googlesing in function")
+  var provider = new firebase.auth.GoogleAuthProvider();
+
+  firebase.auth().signInWithPopup(provider).then(function (result) {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    var token = result.credential.accessToken;
+    // The signed-in user info.
+    var user = result.user;
+    console.log("logg in");
+    console.log(user);
+    getPosts();
+    // ...
+  }).catch(function (error) {
+
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+    console.log(error)
+  });
+
+}
+
+function writePost() {
+
+  var database = firebase.database();
+  let message = document.getElementById("text").value;
+  let user = firebase.auth().currentUser.displayName;
+  console.log(message)
+  console.log(user)
+
+  // A post entry.
+  var postData = {
+    author: username,
+    body: userInput,
+    date: new Date().toISOString()
+
+  };
+
+  // Get a Key for a new Post.
+  var newPostKey = firebase
+    .database()
+    .ref()
+    .child('posts')
+    .push().key
 
 
-        // getPosts()
-    
-    }
+  // Write the new post's data simultanously in the posts list and the user's post list.
+  var updates = {};
+  updates['/posts/' + newPostKey] = postData;
 
-    function getPosts() {
+  firebase
+    .database()
+    .ref()
+    .update(updates);
 
-      const postsDiv = document.querySelector('#posts');
 
-      firebase
-        .database()
-        .ref('posts')
-        .on('value', function(data) {
-          console.log(data.val());
 
-          const allPosts = data.val();
+  // getPosts()
+  firebase.database().ref().child('posts').push().key({
+    user,
+    message,
+    date: new Date()
+  });
 
-          let template = "";
-          for (key in allPosts) {
-            console.log(allPosts[key].author);
-            template +=`
+}
+
+function writeNewPost() {
+
+
+
+  console.log(" write new post");
+  const userInput = document.querySelector('input').value;
+  let user = firebase.auth().currentUser.displayName;
+
+
+  // A post entry.
+  var postData = {
+    author: user,
+    body: userInput,
+    date: new Date().toISOString()
+
+  };
+  console.log(postData);
+
+  // Get a Key for a new Post.
+  var newPostKey = firebase
+    .database()
+    .ref()
+    .child('posts')
+    .push().key
+
+
+  // Write the new post's data simultanously in the posts list and the user's post list.
+  var updates = {};
+  updates['/posts/' + newPostKey] = postData;
+
+  firebase
+    .database()
+    .ref()
+    .update(updates);
+
+
+  // getPosts()
+
+}
+
+function scrollDown(){
+  var element = document.getElementById("posts");
+  element.scrollIntoView(false)
+}
+
+function getPosts() {
+
+  const postsDiv = document.querySelector('#posts');
+
+  firebase
+    .database()
+    .ref('posts')
+    .on('value', function (data) {
+      console.log(data.val());
+
+      const allPosts = data.val();
+
+      let template = "";
+      for (key in allPosts) {
+        console.log(allPosts[key].author);
+        template += `
                 
                   
                     <div class="msg_history">
                             <div class="incoming_msg">
-                              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="any user"> </div>
                               <div class="received_msg">
                                 <div class="received_withd_msg">
                                   <p>Text recieved msg</p>
@@ -603,16 +651,34 @@ console.log(cityId);
                         </div>
                       </div>
                         `;
-          }
+      }
 
-            postsDiv.innerHTML = template;
+      postsDiv.innerHTML = template;
+      scrollDown();
 
 
-              
-          });
-          
 
-    }
+    });
+
+
+}
+
+function logOut() {
+  console.log("reaching logOut")
+
+  firebase.auth().signOut().then(function() {
+    // Sign-out successful.
+  }, function(error) {
+    // An error happened.
+  });
+
+  const logOutScreen = `
+            <div>
+              <div> dafuq outta here!</div>
+            </div>
+  `
+ document.getElementById("posts").innerHTML = logOutScreen;
+}
 
 
 
