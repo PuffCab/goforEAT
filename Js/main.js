@@ -2,21 +2,24 @@
 
 
 window.onload = function () {
-
+  loading()
   createFirstPage();
 
 };
 
 
-
+function loading() {
+  console.log("loader")
+  document.getElementById("loader").style.display = "none"
+  } 
 
 function createFirstPage() {
 
   console.log("cargada funcion")
   const firstList = `
-                        <div class="homeIntro"><h1>ARE YOU HUNGRY?</h1>
+                        <div class="homeIntro"><img src="pictures/go4eatLogo.png" alt="Go for Eat" id="mainIcon"><h2>ARE YOU HUNGRY?</h2>
                         <select id="selectCity" onchange="searchCity(value)">
-                            <option selected="true" disabled="disabled">go for EAT</option>
+                            <option selected="true" disabled="disabled">Select City</option>
                             <option value="280">New York City</option>
                             <option value="82">Lisbon</option>
                             <option value="311">Porto</option>
@@ -57,7 +60,7 @@ function searchCity(cityId) {
        allData = data.restaurants;
       // globalAllData = allData;
       // console.log(globalAllData);
-
+      
       getRestaurans(allData, cityId);
 
       // console.log(allData[0].restaurant.location.address);
@@ -72,7 +75,7 @@ function searchCity(cityId) {
 // var allData = data.restaurants
 function getRestaurans(allData) {
   console.log(allData)
-  
+
   
   var restaurantList = document.getElementById("restaurantList");
   restaurantList.innerHTML = ""; // to empty search and allow new search
@@ -208,12 +211,16 @@ function getOneRestPage(orpAllData) {
   
 
   const oneRestPage = `
+
+                         
+
                           <div id="orpCard" class="person">
+                            
                             <div id="orpImgContainer" class="orpImg">
                                 <img class="img-thumbnail" alt="${orpAllData.name}" src="${orpAllData.featured_image}">
                             </div>
                             <div class="nameContainer">
-                                <span id="orpName" class="name">${orpAllData.name}</span>
+                                <span id="orpName" class="name>${orpAllData.name}</span>
                             </div>
                             <div class="orpCuisineContainer">
                                 <span id="orpCuisine" class="cuisine">${orpAllData.cuisines}</span>
@@ -227,9 +234,9 @@ function getOneRestPage(orpAllData) {
                             <ul>
                                       <li><a class="#menu" href="${orpAllData.menu_url}">Menu</a></li>
                                       <li><a href="#reviews">Reviews</a></li>
-                                      <li><a onclick="initMap(${orpAllData.location.latitude}, ${orpAllData.location.longitude})">Take me there</a></li>
+                                      <li><a onclick="initMap(${orpAllData.location.latitude}, ${orpAllData.location.longitude})">Map</a></li>
                               </ul>
-
+                            
                           </div>
                         `;
 
@@ -346,11 +353,11 @@ function goToChat() {
               <div id="posts">POSTS DEL CHAT</div>
               <footer>
                 <div id="footerChat" class="container">
-                <button id="logIn" type ="button" onclick="googleSignIn()">log In</button>
-                <button id="logIn" type ="button" onclick="logOut()">logOut</button>
+                <button id="btnLogIn" type ="button" onclick="googleSignIn()">log In</button>
+                <button id="btnlogOut" type ="button" onclick="logOut()">logOut</button>
                 <button id="homeBtn" type="button" onclick="goHome()">HOME</button>
                 <input id="text" type="text">
-                <button onclick="writeNewPost(); document.getElementById('text').value = ''">Send</button>
+                <button onclick="writeNewPost(); document.getElementById('text').value = ''"><i class="fa fa-send" style="font-size:24px"></i></button>
                 </div>
               </footer>                
               `
@@ -511,17 +518,12 @@ function getPosts() {
                               <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="any user"> </div>
                               <div class="received_msg">
                                 <div class="received_withd_msg">
-                                  <p>Text recieved msg</p>
-                                  <span class="time_date"> Fecha recieved msg</span></div>
+                                <p>${allPosts[key].author}</p>
+                                <p>${allPosts[key].body}</p>
+                                <span class="time_date">${allPosts[key].date}</span> </div>
                               </div>
                             </div>
-                            <div class="outgoing_msg">
-                                <div class="sent_msg">
-                                  <p>${allPosts[key].author}</p>
-                                  <p>${allPosts[key].body}</p>
-                                  <span class="time_date">${allPosts[key].date}</span> </div>
-                                </div>
-                            </div>
+                            
                           </div>
                         </div>
                       </div>
