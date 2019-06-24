@@ -287,7 +287,7 @@ li a:hover {
 }
 
 /* LG G5 landscape W640 H360 */
-@media only screen and (min-width: 640px) {
+@media only screen and (min-width: 639px) {
 
   body {
       background-color: rgb(49, 190, 124);
@@ -307,6 +307,10 @@ li a:hover {
       justify-content: center;
   }
 
+  /* esta property es la que hace mostrar los botones a un lado en esta vista */
+  .person {
+    display: flex;
+  }
 }
 
 
@@ -416,7 +420,7 @@ img {
   display: inline-block;
   text-align: right;
   width: 60%;
-  padding:
+  
 }
 
 .headind_srch {

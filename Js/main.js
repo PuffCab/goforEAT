@@ -204,8 +204,7 @@ function getOneRestPage(orpAllData) {
                           
                           <div id="orpImgContainer" class="orpImg">
                               <img class="img-thumbnail" alt="${orpAllData.name}" src="${orpAllData.featured_image}">
-                          </div>
-                          <div class="nameContainer">
+<div class="nameContainer">
                               <span id="orpName" class="name>${orpAllData.name}</span>
                           </div>
                           <div class="orpCuisineContainer">
@@ -217,12 +216,14 @@ function getOneRestPage(orpAllData) {
                               <span id="orpAddress" class="address">${orpAllData.location.address}</span>
                           </div>
 
-                          <ul>
+                          </div>
+                          <div class="cardButtons">
+                          <ul >
                                     <li><a class="#menu" href="${orpAllData.menu_url}">Menu</a></li>
                                     <li><a onclick="getReviews(orpAllData)" href="#reviews">Reviews</a></li>
                                     <li><a onclick="initMap(${orpAllData.location.latitude}, ${orpAllData.location.longitude})">Map</a></li>
                             </ul>
-                          
+                          </div>
                         </div>
                       `;
 
@@ -323,7 +324,7 @@ function goToChat() {
   document.getElementById("footerHome").style.display = "none"
 
   const chatPage = `
-            <div id="posts">POSTS DEL CHAT</div>
+            <div id="posts">PLEASE LOG IN FIRST</div>
             <footer>
               <div id="footerChat" class="container">
               <button id="btnLogIn" type ="button" onclick="googleSignIn()">log In</button>
@@ -396,10 +397,10 @@ function writePost() {
       author: username,
       body: userInput,
       date: new Date().toISOString(),
-      pic: result.user.photoURL
+      profilePic: profilePic
 
   };
-
+  console.log(postData);
   // Get a Key for a new Post.
   var newPostKey = firebase
       .database()
@@ -422,7 +423,8 @@ function writePost() {
   // getPosts()
   firebase.database().ref().child('posts').push().key({
       user,
-      message
+      message,
+      profilePic
       // date: new Date() commented out porque segun Lucas no se esta utilizando para nada.
   });
 
@@ -435,14 +437,16 @@ function writeNewPost() {
   console.log(" write new post");
   const userInput = document.querySelector('input').value;
   let user = firebase.auth().currentUser.displayName;
-  let pic = firebase.auth().currentUser.photoURL;
+  let profilePic = firebase.auth().currentUser.photoURL;
+  console.log(profilePic);
 
 
   // A post entry.
   var postData = {
       author: user,
       body: userInput,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
+      profilePic: profilePic
 
   };
   console.log(postData);
@@ -489,12 +493,14 @@ function getPosts() {
           let template = "";
           for (key in allPosts) {
               console.log(allPosts[key].author);
+              console.log(allPosts[key].profilePic);
+
               template += `
               
                 
                   <div class="msg_history">
                           <div class="incoming_msg">
-                            <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="any user"> </div>
+                            <div class="incoming_msg_img"> <img src="${allPosts[key].profilePic}" alt="any user"> </div>
                             <div class="received_msg">
                               <div class="received_withd_msg">
                               <p>${allPosts[key].author}</p>
