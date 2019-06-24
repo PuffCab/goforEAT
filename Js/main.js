@@ -18,12 +18,15 @@ function createFirstPage() {
                       <div class="homeIntro"><img src="pictures/go4eatLogo.png" alt="Go for Eat" id="mainIcon"><h2>ARE YOU HUNGRY?</h2>
                       <select id="selectCity" onchange="searchCity(value)">
                           <option selected="true" disabled="disabled">Select City</option>
+                          <option value="88">Kuala Lumpur</option>
                           <option value="280">New York City</option>
                           <option value="82">Lisbon</option>
                           <option value="311">Porto</option>
                           <option value="91">Dublin</option>
                           <option value="61">London</option>
                           <option value="258">Milan</option>
+                          <
+                          
                           
                       </select>
                     </div>
@@ -219,9 +222,9 @@ function getOneRestPage(orpAllData) {
                           </div>
                           <div class="cardButtons">
                           <ul >
-                                    <li><a class="#menu" href="${orpAllData.menu_url}">Menu</a></li>
-                                    <li><a onclick="getReviews(orpAllData)" href="#reviews">Reviews</a></li>
                                     <li><a onclick="initMap(${orpAllData.location.latitude}, ${orpAllData.location.longitude})">Map</a></li>
+                                    <li><a onclick="getReviews(orpAllData)" href="#reviews">Reviews</a></li>
+                                    <li><a class="#menu" href="${orpAllData.menu_url}">Menu</a></li>
                             </ul>
                           </div>
                         </div>
@@ -229,7 +232,7 @@ function getOneRestPage(orpAllData) {
 
   document.getElementById("restaurantList").innerHTML = oneRestPage
 
-
+  
 }
 
 function getReviews(orpAllData) {
@@ -361,10 +364,11 @@ function googleSignIn() {
       var token = result.credential.accessToken;
       // The signed-in user info.
       var user = result.user;
-      var profilePic = result.user.photoURL
+      var profilePic = result.user.photoURL;
+      var userId = result.user.uid;
       console.log("logg in");
       console.log(user);
-      console.log(profilePic);
+      console.log(userId);
 
       getPosts();
       // ...
@@ -397,7 +401,8 @@ function writePost() {
       author: username,
       body: userInput,
       date: new Date().toISOString(),
-      profilePic: profilePic
+      profilePic: profilePic,
+      userId: userId
 
   };
   console.log(postData);
@@ -424,7 +429,8 @@ function writePost() {
   firebase.database().ref().child('posts').push().key({
       user,
       message,
-      profilePic
+      profilePic,
+      userId
       // date: new Date() commented out porque segun Lucas no se esta utilizando para nada.
   });
 
@@ -438,7 +444,8 @@ function writeNewPost() {
   const userInput = document.querySelector('input').value;
   let user = firebase.auth().currentUser.displayName;
   let profilePic = firebase.auth().currentUser.photoURL;
-  console.log(profilePic);
+  let userId = firebase.auth().currentUser.uid
+  console.log(userId);
 
 
   // A post entry.
@@ -446,7 +453,8 @@ function writeNewPost() {
       author: user,
       body: userInput,
       date: new Date().toISOString(),
-      profilePic: profilePic
+      profilePic: profilePic,
+      userId: userId
 
   };
   console.log(postData);
@@ -503,7 +511,6 @@ function getPosts() {
                             <div class="incoming_msg_img"> <img src="${allPosts[key].profilePic}" alt="any user"> </div>
                             <div class="received_msg">
                               <div class="received_withd_msg">
-                              <p>${allPosts[key].author}</p>
                               <p>${allPosts[key].body}</p>
                               <span class="time_date">${allPosts[key].date}</span> </div>
                             </div>
